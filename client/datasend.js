@@ -88,12 +88,10 @@ $(function() {
 
     // ジャイロセンサーの値が変化
     function deviceorientationHandler(event) {
-
-
         // 地面に対して水平を90としたいため調整
         // X軸
         var beta = Math.floor(event.beta + 90);
-        ss
+        
         // Y軸
         var gamma = Math.floor(event.gamma + 90);
         var rot = {
