@@ -14,6 +14,12 @@ $ npm start
 ```
 browse [localhost:3000](http://localhost:3000)
 
+####SmartPhone page####
+localhost:3000/send
+
+####Desktop with Arduino page####
+localhost:3000/get
+
 ### Contribution guidelines ###
 
 * Writing tests
