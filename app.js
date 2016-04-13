@@ -7,10 +7,14 @@ app.use(express.static('client'));
 
 app.get('/', function(req, res) {
     res.sendFile(__dirname + "/client/datachat.html")
-    //res.send('hello world');
 });
-app.get('/about', function(req, res) {
-    res.send('about this page!');
+
+app.get('/send', function(req, res) {
+    res.sendFile(__dirname + "/client/datasend.html")
+});
+
+app.get('/get', function(req, res) {
+    res.sendFile(__dirname + "/client/dataget.html")
 });
 
 app.listen(3000);
