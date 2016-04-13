@@ -78,4 +78,30 @@ $(function() {
     $("#close").click(function() {
         conn.close();
     });
+
+    var $textX;
+    var $textY;
+    var socket;
+
+    $(function() {
+        $textX = $("#text-x");
+        $textY = $("#text-y");
+
+        // DeviceOrientation Event
+        window.addEventListener("deviceorientation", deviceorientationHandler);
+    });
+
+    // ジャイロセンサーの値が変化
+    function deviceorientationHandler(event) {
+        // 地面に対して水平を90としたいため調整
+        // X軸
+        var beta = Math.floor(event.beta + 90);
+        
+        // Y軸
+        var gamma = Math.floor(event.gamma + 90);
+
+        $textX.html("X : " + beta);
+        $textY.html("Y : " + gamma);
+    }
+
 });

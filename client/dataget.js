@@ -59,21 +59,6 @@ $(function() {
         conn.on("data", onRecvMessage);
     });
  
-    // Sendボタンクリック時の動作
-    $("#send").click(function() {
-        // 送信テキストの取得
-        var message = $("#message").val();
- 
-        // 送信
-        conn.send(message);
- 
-        // 自分の画面に表示
-        $("#messages").append($("<p>").html(peer.id + ": " + message));
- 
-        // 送信テキストボックスをクリア
-        $("#message").val("");
-    });
- 
     // Closeボタンクリック時の動作
     $("#close").click(function() {
         conn.close();
