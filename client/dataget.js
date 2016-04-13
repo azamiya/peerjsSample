@@ -33,7 +33,8 @@ peer.on('connection', function(connection){
 // メッセージ受信イベントの設定
 function onRecvMessage(data) {
     // 画面に受信したメッセージを表示
-    $("#messages").append($("<p>").text(conn.id + ": " + data).css("font-weight", "bold"));
+    //$("#messages").append($("<p>").text(conn.id + ": " + data).css("font-weight", "bold"));
+    $("#messages").text(conn.id + ": " + data + ", " + data.x + ", " + data.y).css("font-weight", "bold");
 }
  
 // DOM要素の構築が終わった場合に呼ばれるイベント
@@ -57,7 +58,10 @@ $(function() {
  
         // メッセージ受信イベントの設定
         conn.on("data", onRecvMessage);
+
     });
+
+
  
     // Closeボタンクリック時の動作
     $("#close").click(function() {

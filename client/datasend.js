@@ -56,7 +56,7 @@ $(function() {
         });
  
         // メッセージ受信イベントの設定
-        conn.on("data", onRecvMessage);
+        //conn.on("data", onRecvMessage);
     });
  
     // Sendボタンクリック時の動作
@@ -73,15 +73,10 @@ $(function() {
         // 送信テキストボックスをクリア
         $("#message").val("");
     });
- 
-    // Closeボタンクリック時の動作
-    $("#close").click(function() {
-        conn.close();
-    });
 
+    //get devise rotation
     var $textX;
     var $textY;
-    var socket;
 
     $(function() {
         $textX = $("#text-x");
@@ -93,15 +88,30 @@ $(function() {
 
     // ジャイロセンサーの値が変化
     function deviceorientationHandler(event) {
+
+
         // 地面に対して水平を90としたいため調整
         // X軸
         var beta = Math.floor(event.beta + 90);
-        
+        ss
         // Y軸
         var gamma = Math.floor(event.gamma + 90);
+        var rot = {
+            x : beta,
+            y : gamma
+        }
+        //$textX.html("X : " + beta);
+        //$textY.html("Y : " + gamma);
+        $textX.html("X : " + rot.x);
+        $textY.html("Y : " + rot.y);
 
-        $textX.html("X : " + beta);
-        $textY.html("Y : " + gamma);
+        //conn.send(beta);
+        conn.send(rot);
     }
+
+    // Closeボタンクリック時の動作
+    $("#close").click(function() {
+        conn.close();
+    });
 
 });
