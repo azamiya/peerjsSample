@@ -3,6 +3,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 
 var localStream;    // 自分の映像ストリームを保存しておく変数
 var connectedCall;  // 接続したコールを保存しておく変数
+let conn = null;
 
 // SkyWayのシグナリングサーバーへ接続する (APIキーを置き換える必要あり）
 var peer = new Peer({ key: 'wqxgosr3rfwdn29', debug: 3});
@@ -42,6 +43,24 @@ peer.on('call', function(call){
         $('#peer-video').prop('src', url);
     });
 });
+
+// 相手からデータ通信の接続要求イベントが来た場合、このconnectionイベントが呼ばれる
+// - 渡されるconnectionオブジェクトを操作することで、データ通信が可能
+peer.on('connection', function(connection){
+  　
+    // データ通信用に connectionオブジェクトを保存しておく
+    conn = connection;
+ 
+    // メッセージ受信イベントの設定
+    conn.on("data", onRecvMessage);
+});
+
+// メッセージ受信イベントの設定
+function onRecvMessage(data) {
+    // 画面に受信したメッセージを表示
+    //$("#messages").append($("<p>").text(conn.id + ": " + data).css("font-weight", "bold"));
+    $("#messages").text(conn.id + ": " + data + ", " + data.x + ", " + data.y).css("font-weight", "bold");
+}
 
 // DOM要素の構築が終わった場合に呼ばれるイベント
 // - DOM要素に結びつく設定はこの中で行なう

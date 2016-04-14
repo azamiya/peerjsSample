@@ -2,6 +2,7 @@
 var localStream;    // 自分の映像ストリームを保存しておく変数
 var connectedCall;  // 接続したコールを保存しておく変数
 let url = null;
+let conn = null;
 
 // SkyWayのシグナリングサーバーへ接続する (APIキーを置き換える必要あり）
 var peer = new Peer({ key: 'wqxgosr3rfwdn29', debug: 3});
@@ -38,10 +39,12 @@ peer.on('call', function(call){
         //var url = URL.createObjectURL(stream);
         url = URL.createObjectURL(stream);
 
-
         // video要素のsrcに設定することで、映像を表示する
         $('#peer-video').prop('src', url);
     });
+    console.log("hello peer");
+    //console.log("peer id : " + call.peer);
+    conn = peer.connect(call.peer);
 
 });
 
@@ -74,5 +77,18 @@ $(function() {
         }
         $textX.html("X : " + rot.x);
         $textY.html("Y : " + rot.y);
+
+        //data send to controller
+        conn.send(rot);
     }
+
+    // Sendボタンクリック時の動作
+    $("#send").click(function() {
+        // 送信テキストの取得
+        var message = "helo world peeeeeeeeer";
+ 
+        // 送信
+        conn.send(message);
+        console.log(message);
+    });
 });
