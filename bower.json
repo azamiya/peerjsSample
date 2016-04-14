@@ -1,0 +1,20 @@
+{
+  "name": "My application",
+  "homepage": "https://github.com/cdra0624/peerjsSample",
+  "authors": [
+    "adaniya <t.adaniya@adawarp.com>"
+  ],
+  "description": "0.0.1",
+  "main": "app.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "three.js": "threejs#*"
+  }
+}

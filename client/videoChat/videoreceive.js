@@ -1,8 +1,7 @@
-// カメラ／マイクにアクセスするためのメソッドを取得しておく
-//navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.mediaDevices.getUserMedia;
-
+"use strict";
 var localStream;    // 自分の映像ストリームを保存しておく変数
 var connectedCall;  // 接続したコールを保存しておく変数
+let url = null;
 
 // SkyWayのシグナリングサーバーへ接続する (APIキーを置き換える必要あり）
 var peer = new Peer({ key: 'wqxgosr3rfwdn29', debug: 3});
@@ -36,66 +35,20 @@ peer.on('call', function(call){
 
         // 映像ストリームオブジェクトをURLに変換する
         // - video要素に表示できる形にするため変換している
-        var url = URL.createObjectURL(stream);
+        //var url = URL.createObjectURL(stream);
+        url = URL.createObjectURL(stream);
+
 
         // video要素のsrcに設定することで、映像を表示する
         $('#peer-video').prop('src', url);
     });
+
 });
 
 // DOM要素の構築が終わった場合に呼ばれるイベント
 // - DOM要素に結びつく設定はこの中で行なう
 $(function() {
-    /*console.log("hello receiver");
-    // カメラ／マイクのストリームを取得する
-    // - 取得が完了したら、第二引数のFunctionが呼ばれる。呼び出し時の引数は自身の映像ストリーム
-    // - 取得に失敗した場合、第三引数のFunctionが呼ばれる
-    navigator.getUserMedia({audio: true, video: true}, function(stream){
-
-        // このストリームを通話がかかってき場合と、通話をかける場合に利用するため、保存しておく
-        localStream = stream;
-
-        // 映像ストリームオブジェクトをURLに変換する
-        // - video要素に表示できる形にするため変換している
-        var url = URL.createObjectURL(stream);
-
-        // video要素のsrcに設定することで、映像を表示する
-        $('#my-video').prop('src', url);
-
-    }, function() { alert("Error!"); });
-
-    // Start Callボタンクリック時の動作
-    $('#call-start').click(function(){
-
-        // 接続先のIDをフォームから取得する
-        var peer_id = $('#peer-id-input').val();
-
-        // 相手と通話を開始して、自分のストリームを渡す
-        var call = peer.call(peer_id, localStream);
-            
-        // 相手のストリームが渡された場合、このstreamイベントが呼ばれる
-        // - 渡されるstreamオブジェクトは相手の映像についてのストリームオブジェクト
-        call.on('stream', function(stream){
-            // 相手のIDを表示する
-            $("#peer-id").text(call.peer);
-
-            // 映像ストリームオブジェクトをURLに変換する
-            // - video要素に表示できる形にするため変換している
-            var url = URL.createObjectURL(stream);
-
-            // video要素のsrcに設定することで、映像を表示する
-            $('#peer-video').prop('src', url);
-        });
-    });
-
-    // End　Callボタンクリック時の動作
-    $('#call-end').click(function(){
-        // ビデオ通話を終了する
-        connectedCall.close();
-    });*/
-
-
-        //get devise rotation
+    //get devise rotation
     var $textX;
     var $textY;
 
@@ -119,14 +72,7 @@ $(function() {
             x : beta,
             y : gamma
         }
-        //$textX.html("X : " + beta);
-        //$textY.html("Y : " + gamma);
         $textX.html("X : " + rot.x);
         $textY.html("Y : " + rot.y);
-
-        //conn.send(beta);
-        //conn.send(rot);
     }
 });
-
-
