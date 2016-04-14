@@ -25,5 +25,13 @@ app.get('/vreceive', function(req, res) {
     res.sendFile(__dirname + "/client/videoChat/videoreceive.html")
 });
 
+app.get('/viewer', function(req, res) {
+    res.sendFile(__dirname + "/client/videoWithSensor/viewer.html")
+});
+
+app.get('/controller', function(req, res) {
+    res.sendFile(__dirname + "/client/videoWithSensor/controller.html")
+});
+
 app.listen(3000);
 console.log("server starting...");
