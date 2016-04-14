@@ -3,7 +3,7 @@ var conn;     // データ通信用connectionオブジェクトの保存用変�
  
 // SkyWayのシグナリングサーバーへ接続する  (APIキーを置き換える必要あり）
 var peer = new Peer({ key: 'j4l102wextqyf1or', debug: 3});
- 
+
 // シグナリングサーバへの接続が確立したときに、このopenイベントが呼ばれる
 peer.on('open', function(){
     // 自分のIDを表示する

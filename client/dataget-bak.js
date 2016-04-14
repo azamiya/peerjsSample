@@ -3,7 +3,7 @@ var conn;     // データ通信用connectionオブジェクトの保存用変�
  
 // SkyWayのシグナリングサーバーへ接続する  (APIキーを置き換える必要あり）
 var peer = new Peer({ key: 'wqxgosr3rfwdn29', debug: 3});
- 
+
 // シグナリングサーバへの接続が確立したときに、このopenイベントが呼ばれる
 peer.on('open', function(){
     // 自分のIDを表示する
@@ -33,7 +33,8 @@ peer.on('connection', function(connection){
 // メッセージ受信イベントの設定
 function onRecvMessage(data) {
     // 画面に受信したメッセージを表示
-    $("#messages").append($("<p>").text(conn.id + ": " + data).css("font-weight", "bold"));
+    //$("#messages").append($("<p>").text(conn.id + ": " + data).css("font-weight", "bold"));
+    $("#messages").text(conn.id + ": " + data + ", " + data.x + ", " + data.y).css("font-weight", "bold");
 }
  
 // DOM要素の構築が終わった場合に呼ばれるイベント
@@ -56,60 +57,14 @@ $(function() {
         });
  
         // メッセージ受信イベントの設定
-        //conn.on("data", onRecvMessage);
-    });
- 
-    // Sendボタンクリック時の動作
-    $("#send").click(function() {
-        // 送信テキストの取得
-        var message = $("#message").val();
- 
-        // 送信
-        conn.send(message);
- 
-        // 自分の画面に表示
-        $("#messages").append($("<p>").html(peer.id + ": " + message));
- 
-        // 送信テキストボックスをクリア
-        $("#message").val("");
+        conn.on("data", onRecvMessage);
+
     });
 
-    //get devise rotation
-    var $textX;
-    var $textY;
 
-    $(function() {
-        $textX = $("#text-x");
-        $textY = $("#text-y");
-
-        // DeviceOrientation Event
-        window.addEventListener("deviceorientation", deviceorientationHandler);
-    });
-
-    // ジャイロセンサーの値が変化
-    function deviceorientationHandler(event) {
-        // 地面に対して水平を90としたいため調整
-        // X軸
-        var beta = Math.floor(event.beta + 90);
-        
-        // Y軸
-        var gamma = Math.floor(event.gamma + 90);
-        var rot = {
-            x : beta,
-            y : gamma
-        }
-        //$textX.html("X : " + beta);
-        //$textY.html("Y : " + gamma);
-        $textX.html("X : " + rot.x);
-        $textY.html("Y : " + rot.y);
-
-        //conn.send(beta);
-        conn.send(rot);
-    }
-
+ 
     // Closeボタンクリック時の動作
     $("#close").click(function() {
         conn.close();
     });
-
 });

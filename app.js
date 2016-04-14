@@ -17,5 +17,13 @@ app.get('/get', function(req, res) {
     res.sendFile(__dirname + "/client/dataget.html")
 });
 
+app.get('/vsend', function(req, res) {
+    res.sendFile(__dirname + "/client/videoChat/videosend.html")
+});
+
+app.get('/vreceive', function(req, res) {
+    res.sendFile(__dirname + "/client/videoChat/videoreceive.html")
+});
+
 app.listen(3000);
 console.log("server starting...");
